@@ -1,6 +1,7 @@
 
 
 
+
 <?php
 // Include the database connection
 
@@ -20,7 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['cbc_report'])) {
         if (file_exists($targetFile)) {
             // Call the Python script with proper arguments
             $command = escapeshellcmd("python scripts/main_script.py") . " " . escapeshellarg($targetFile) . " " . escapeshellarg($patientName);
+            // $command = "python scripts/main_script.py " . escapeshellarg($targetFile) . " " . escapeshellarg($patientName);
             $output = shell_exec($command);
+
 
             $message = $output ? "Report uploaded and processed successfully." : "Error: Python script execution failed.";
         } else {
@@ -68,7 +71,7 @@ foreach ($reports as $report) {
         <form action="dashboard.php" method="POST" enctype="multipart/form-data">
             <label for="patient_name">Patient Name:</label>
             <input type="text" name="patient_name" id="patient_name" required>
-            <label for="cbc_report">Upload CBC Report (PDF only):</label>
+            <label for="cbc_report">Upload CBC Report :</label>
             <input type="file" name="cbc_report" id="cbc_report" accept=".pdf" required>
             <button type="submit">Upload and Process</button>
         </form>
@@ -142,3 +145,4 @@ foreach ($reports as $report) {
     </script>
 </body>
 </html>
+
